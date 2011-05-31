@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{bonsai}
-  s.version = "1.3.0"
+  s.version = "1.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Ben Schwarz"]
-  s.date = %q{2010-12-28}
+  s.date = %q{2011-05-31}
   s.default_executable = %q{bonsai}
   s.description = %q{A static site generator that uses the best toolset available}
   s.email = %q{ben.schwarz@gmail.com}
@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
     ".bundle/config",
     ".document",
     ".kick",
+    ".rspec",
     "CHANGES",
     "Gemfile",
     "Gemfile.lock",
@@ -117,7 +118,6 @@ Gem::Specification.new do |s|
     "spec/support/templates/partials/inserted.mustache",
     "vendor/yui-compressor/yuicompressor-2.4.2.jar"
   ]
-  s.has_rdoc = false
   s.homepage = %q{http://github.com/benschwarz/bonsai}
   s.post_install_message = %q{
 
@@ -129,7 +129,7 @@ Gem::Specification.new do |s|
       type `bonsai --help` to get started
     }
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.7}
+  s.rubygems_version = %q{1.6.2}
   s.summary = %q{A static site generator that uses the best toolset available}
   s.test_files = [
     "spec/bonsai/console_spec.rb",
@@ -144,15 +144,14 @@ Gem::Specification.new do |s|
   ]
 
   if s.respond_to? :specification_version then
-    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<jeweler>, [">= 0"])
-      s.add_runtime_dependency(%q<rspec>, [">= 0"])
+      s.add_runtime_dependency(%q<rspec>, ["~> 2.3"])
       s.add_runtime_dependency(%q<yard>, [">= 0"])
-      s.add_runtime_dependency(%q<tilt>, ["~> 0.5.0"])
-      s.add_runtime_dependency(%q<mustache>, ["~> 0.5.0"])
+      s.add_runtime_dependency(%q<tilt>, ["~> 0.9.0"])
+      s.add_runtime_dependency(%q<mustache>, ["~> 0.7.0"])
       s.add_runtime_dependency(%q<builder>, [">= 0"])
       s.add_runtime_dependency(%q<watch>, [">= 0"])
       s.add_runtime_dependency(%q<sinatra>, [">= 0"])
@@ -163,7 +162,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<i18n>, [">= 0"])
       s.add_development_dependency(%q<rspec>, [">= 1.3.0"])
       s.add_development_dependency(%q<yard>, [">= 0"])
-      s.add_runtime_dependency(%q<tilt>, [">= 0.5"])
+      s.add_runtime_dependency(%q<tilt>, [">= 0.9.0"])
       s.add_runtime_dependency(%q<mustache>, [">= 0.5.0"])
       s.add_runtime_dependency(%q<builder>, [">= 2.1.2"])
       s.add_runtime_dependency(%q<watch>, [">= 0.1.0"])
@@ -175,10 +174,10 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<activesupport>, [">= 2.3.5"])
     else
       s.add_dependency(%q<jeweler>, [">= 0"])
-      s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<rspec>, ["~> 2.3"])
       s.add_dependency(%q<yard>, [">= 0"])
-      s.add_dependency(%q<tilt>, ["~> 0.5.0"])
-      s.add_dependency(%q<mustache>, ["~> 0.5.0"])
+      s.add_dependency(%q<tilt>, ["~> 0.9.0"])
+      s.add_dependency(%q<mustache>, ["~> 0.7.0"])
       s.add_dependency(%q<builder>, [">= 0"])
       s.add_dependency(%q<watch>, [">= 0"])
       s.add_dependency(%q<sinatra>, [">= 0"])
@@ -189,7 +188,7 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<i18n>, [">= 0"])
       s.add_dependency(%q<rspec>, [">= 1.3.0"])
       s.add_dependency(%q<yard>, [">= 0"])
-      s.add_dependency(%q<tilt>, [">= 0.5"])
+      s.add_dependency(%q<tilt>, [">= 0.9.0"])
       s.add_dependency(%q<mustache>, [">= 0.5.0"])
       s.add_dependency(%q<builder>, [">= 2.1.2"])
       s.add_dependency(%q<watch>, [">= 0.1.0"])
@@ -202,10 +201,10 @@ Gem::Specification.new do |s|
     end
   else
     s.add_dependency(%q<jeweler>, [">= 0"])
-    s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<rspec>, ["~> 2.3"])
     s.add_dependency(%q<yard>, [">= 0"])
-    s.add_dependency(%q<tilt>, ["~> 0.5.0"])
-    s.add_dependency(%q<mustache>, ["~> 0.5.0"])
+    s.add_dependency(%q<tilt>, ["~> 0.9.0"])
+    s.add_dependency(%q<mustache>, ["~> 0.7.0"])
     s.add_dependency(%q<builder>, [">= 0"])
     s.add_dependency(%q<watch>, [">= 0"])
     s.add_dependency(%q<sinatra>, [">= 0"])
@@ -216,7 +215,7 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<i18n>, [">= 0"])
     s.add_dependency(%q<rspec>, [">= 1.3.0"])
     s.add_dependency(%q<yard>, [">= 0"])
-    s.add_dependency(%q<tilt>, [">= 0.5"])
+    s.add_dependency(%q<tilt>, [">= 0.9.0"])
     s.add_dependency(%q<mustache>, [">= 0.5.0"])
     s.add_dependency(%q<builder>, [">= 2.1.2"])
     s.add_dependency(%q<watch>, [">= 0.1.0"])
