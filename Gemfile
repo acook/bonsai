@@ -1,11 +1,11 @@
 source 'http://rubygems.org'
 
 gem 'jeweler'
-gem 'rspec', '~> 2.3'
+gem 'rspec', '~> 2.6.0'
 gem 'yard'
 
-gem 'tilt', '~> 0.9.0'
-gem 'mustache', '~> 0.7.0'
+gem 'tilt', '~> 1.3.3'
+gem 'mustache', '~> 0.99.4'
 gem 'builder'
 gem 'watch'
 gem 'sinatra'

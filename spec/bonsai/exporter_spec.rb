@@ -4,56 +4,56 @@ describe Bonsai::Exporter do
   after :suite do
     FileUtils.rm_rf Bonsai::Exporter.path
   end
-  
+
   it "should have a path" do
     Bonsai::Exporter.path.should_not be_nil
   end
-  
+
   it "should set the path" do
     Bonsai::Exporter.path = 'support/exporter/test'
     Bonsai::Exporter.path.should == 'support/exporter/test'
     Bonsai::Exporter.path = BONSAI_PATH + "/output"
   end
-  
-  shared_examples_for "css generators" do      
+
+  shared_examples_for "css generators" do
     it "should process .less files to .css" do
       File.exists?("#{Bonsai::Exporter.path}/stylesheets/lesscss.css").should be_true
     end
-    
+
     it "should process .sass files to .css" do
       File.exists?("#{Bonsai::Exporter.path}/stylesheets/sassy.css").should be_true
     end
-        
+
     it "should log an error when badly formatted less is supplied (and not raise an exception)" do
       Bonsai.should_receive(:log)
-      lambda { Bonsai::Exporter.send(:generate_css) }.should_not raise_error(Less::SyntaxError)
+      lambda { Bonsai::Exporter.send(:generate_css) }.should_not raise_error(Less::ParseError)
     end
   end
-  
+
   describe "process!" do
     describe "tasks" do
       before :all do
         FileUtils.rm_rf Bonsai::Exporter.path
         Bonsai::Exporter.process!
       end
-      
+
       it_should_behave_like "css generators"
-      
+
       # Uncompressed CSS
       it "should be processed with less" do
         File.read("#{Bonsai::Exporter.path}/stylesheets/lesscss.css").should == ".mymixin, #content { display: block; }\n"
       end
-      
+
       it "should be processed with sass" do
         File.read("#{Bonsai::Exporter.path}/stylesheets/sassy.css").should == "#content {\n  display: block; }\n"
       end
     end
-    
+
     describe "expectations" do
       after do
         Bonsai::Exporter.process!
       end
-      
+
       it "should copy assets" do
         Bonsai::Exporter.should_receive(:copy_assets)
       end
@@ -64,7 +64,7 @@ describe Bonsai::Exporter do
 
       it "should generate css via lesscss" do
         Bonsai::Exporter.should_receive(:generate_css)
-      end      
+      end
     end
   end
 
@@ -74,18 +74,18 @@ describe Bonsai::Exporter do
         FileUtils.rm_rf Bonsai::Exporter.path
         Bonsai::Exporter.publish!
       end
-      
+
       it_should_behave_like "css generators"
-      
+
       # Compressed CSS
       it "should be processed with less" do
         File.read("#{Bonsai::Exporter.path}/stylesheets/lesscss.css").should == ".mymixin,#content{display:block;}"
       end
-      
+
       it "should be processed with sass" do
         File.read("#{Bonsai::Exporter.path}/stylesheets/sassy.css").should == "#content{display:block;}"
       end
-      
+
       it "should not export the base.less file" do
         File.exists?("#{Bonsai::Exporter.path}/stylesheets/base.less").should be_false
       end
@@ -96,14 +96,14 @@ describe Bonsai::Exporter do
 
       it "should render pages to the output directory" do
         # Index is rendered to index.html and index/index.html
-        Dir[Bonsai::Exporter.path + "/**/*.html"].size.should == Bonsai::Page.all.size + 1  
+        Dir[Bonsai::Exporter.path + "/**/*.html"].size.should == Bonsai::Page.all.size + 1
       end
 
       it "should copy the images of each page to its directory" do
         File.exists?("#{Bonsai::Exporter.path}/about-us/history/images/image001.jpg").should be_true
       end
 
-      it 'should copy the assets of each page to its directory' do    
+      it 'should copy the assets of each page to its directory' do
         File.exists?("#{Bonsai::Exporter.path}/about-us/history/1_a_file_asset.txt").should be_true
       end
 
@@ -114,24 +114,24 @@ describe Bonsai::Exporter do
       it "should write the index file to output/index.html" do
         File.exists?("#{Bonsai::Exporter.path}/index.html").should be_true
       end
-      
+
       it "should write a sitemap.xml" do
         File.exists?("#{Bonsai::Exporter.path}/sitemap.xml").should be_true
       end
-      
+
       it "should write a readme file to explain how the site was generated" do
         File.exists?("#{Bonsai::Exporter.path}/ABOUT-THIS-SITE.txt").should be_true
       end
-      
+
       describe "asset compression" do
         it "should compress the css file" do
           File.read("#{Bonsai::Exporter.path}/stylesheets/lesscss.css").should == ".mymixin,#content{display:block;}"
         end
-        
+
         it "should compress the css file" do
           File.read("#{Bonsai::Exporter.path}/stylesheets/sassy.css").should == "#content{display:block;}"
         end
-        
+
         it "should compress the js file" do
           File.read("#{Bonsai::Exporter.path}/js/script.js").should == "$(function(){$(\".default-value\").each(function(){var a=this.value;$(this).focus(function(){if(this.value==a){this.value=\"\"}});$(this).blur(function(){if(this.value==\"\"){this.value=a}})});$(\".details dd:empty\").hide().prev(\"dt\").hide()});"
         end
@@ -142,11 +142,11 @@ describe Bonsai::Exporter do
       after do
         Bonsai::Exporter.publish!
       end
-      
+
       it "should remove the output directory before re-creating it" do
         FileUtils.should_receive(:rm_rf).with(Bonsai::Exporter.path)
       end
-      
+
       it "should process css with less or sass" do
         Bonsai::Exporter.should_receive(:generate_css)
       end
